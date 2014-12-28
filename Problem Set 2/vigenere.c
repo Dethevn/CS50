@@ -48,7 +48,7 @@ int main(int argc, string argv[])
 					mod_index++;
 				}
 			}
-			if (isupper(some_text[i]))
+			else if (isupper(some_text[i]))
 				// if adding key does not exceed the last possible alphabet number
 				// Note, we do note subtract 65 (instead of 97) b/c we stated above that we are using lower case to loop through the key
 				if ((some_text[i] + (key[mod_index % mod_length] - 97)) < 91)
@@ -56,7 +56,7 @@ int main(int argc, string argv[])
 					printf("%c", some_text[i] + (key[mod_index % mod_length] - 97));
 					mod_index++; // increment to loop through keyword
 				}
-			// if adding key does exceed z, then add excess over to 96 (beginning)
+			// if adding key does exceed z, then add excess over to 64 (beginning)
 				else
 				{
 					printf("%c", 64 + ((some_text[i]) + ((key[mod_index % mod_length]) - 97)) % 90);
