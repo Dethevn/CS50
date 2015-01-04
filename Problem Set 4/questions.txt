@@ -1,0 +1,48 @@
+0.  A JPEG can support (256x256x256) or 16,777,216 colors.
+    A GIF can support 256 colors.
+    A PNG can support 256 colors.
+    A BMP can support 16,777,216 colors.
+1.  The image type that supports animation is GIF (and animated PNG which is not as widespread).
+2.  "Lossy" and "Lossless" are terms to describe the amount of data that can be recovered when a file is uncompressed. Lossless compression is
+    when all data is retained during compression of files whereas Lossy compression permanently eliminates some data (typically
+    redundant data) in an effort to save some size in the file. 
+3.  JPEG has lossy compression. GIF and PNG have lossless.
+4.  When a file is deleted on a FAT file system, the directory entry (filename's first character) that points to the file is 
+    overwritten but the file data itself is untouched. That directory entry of that file can then subsequently be recycled and 
+    reused. 
+5.  The method that yields highest probability that files will not be recovered is overwriting a hard disk by filling
+    every addressable block with ASCII NULL bytes (0 (zeroing) the address blocks). This can be done with various commercially
+    available sanization tools. 
+6.  "stdint.h" is a header file which includes a number of typedefs for various exact width integer types. This was done to make 
+    exact width integers easily accessible when fixed width integers are necessary in acheiving results with high precision. Using
+    integer types declared in stdint.h can also result in more efficient use of storage/buffers.
+7.  The point of u sing uint8_t, uint32_t, etc is to declare variables that store specific width integers as these typdefs specifically 
+    define the max and min int values. This is especially useful when you know you will need exactly 1 byte of storage for the integer
+    (i.e. uint8_t) or you want to look for values that are exactly 1 byte in a buffer. 
+8.  1 BYTE is 1 Byte or 8 Bits.
+    1 DWORD is 4 Bytes or 4*8 = 32 Bits.
+    1 LONG is 4 Bytes or 4*8 = 32 Bits.
+    1 WORD is 2 Bytes or 2*8 = 16 Bits.
+9.  The first two bytes are type WORD (2 Bytes - see above) which are the bfType in the BITMAPFILEHEADER and must be '42fd' in
+    hexadecimal or 'BM' in ASCII for the file to be identified as a BITMAP file. 
+10. bfsize is the size of the BITMAP file (bytes). bisize is the number of bytes required by the 'struct' storing
+    information about the dimensions and color format of the bitmap file (i.e. sum of the size of all the members of the struct 
+    BITMAPINFOHEADER).      
+11. If biheight is negative it means the Bitmap is a top down bitmap and its origin is the upper-left corner.
+12. biBitCount specifies the BMP's color depth (bits per pixel).
+13. fopen might return null when the program fails to create the file for any reason (for example if there is insufficient
+    memory or the directory is read only (no write)). 
+14. The third argument in fread specifies how many items to read of size 'size' at once. The reason 1 is used is to indicate that one
+    only one element of size 'size' is being read at a time in a loop (or only 1 needs to be read in total). 
+15. If bi.biWidth is 3, then int padding =  (4 - (bi.biWidth * sizeof(RGBTRIPLE)) % 4) % 4;
+    int padding = (4 - (3 * 3) % 4 ) % 4
+    int padding = (4 - 1) % 4
+    int padding = 3
+    copy.c:70 assigns 3 to padding when bi.biWidth is 3.
+16. fseek() is a function used to change the current position being read by the first 'stream' pointer. Its used in copy.c is to set the 
+    current position of the file pointer (inptr) from end of each scanline to beginning of new scanline by adding padding to the current
+    index of inptr in the event the file has padding. If there is no padding, no offset will be added to the current position of the file. 
+    This is to ensure the padding is skipped over at the end of reading each row in the bitmap file. fseek() is also useful in locating
+    the end of a file by using the SEEK_END constant. 
+17. SEEK_CUR is the current position of the file pointer.
+18. Robert Bowden dunit!

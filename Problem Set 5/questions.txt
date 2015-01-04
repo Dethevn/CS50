@@ -1,0 +1,47 @@
+0.  pneumonoultramicroscopicsilicovolcanoconiosis is an ENglish word that refers to lung disease otherwise known as silicosis. 
+    It is the longest word in the english language.
+1.  getrusage calculates the resource usage of a variable 'who' (user defined) and returns this data to the second argument
+    which is a pointer to a struct defined by the user. The members of this struct contain the information about usage
+    of 'who'.
+2.  There are 16 members in the struct rusage variable type. 
+3.  We pass before and after by reference because these variables have already been stored in the stack. If we passed them
+    by value, there will be additional processing time to copy the variables, thus passing by reference saves some processing
+    time. 
+4.  Main first ensures that a pointer to a file was provided as a command line argument and attempts to open the file. After
+    main is able to open the file (there is sufficient memory), main assigns a pointer fp to the index of the first character
+    in the file and executes the for loop.
+    
+    The for loop reads the first character pointed to by fp (pointer to file stream) and checks to ensure that character is not 
+    the special character EOF which signifies it is the end of the file; if it isn't, that character is stored in a temporary buffer character c.
+    If c is an alphabetical character or c is an apostrophe that doesn't begin at the start of a word, append that character to 
+    the 'word' character array used to store the word we are currently reading. For each character read, increment our index
+    integer. The index which tests to ensure we are not reading strings that cannot be words (i.e. that exceed 45 characters).
+    
+    Before moving onto the next character, perform a test to ensure the index doesnt exceed 45 characters or an english
+    word is not being read. If this is the case, keep moving the pointer fp until end of file while characters are still
+    being read. Assign the index to 0 to get ready to read a new word (and test to ensure it is indeed < 45 characters).
+    
+    If the for loop doesn't pass test on line 79 (i.e. the character pointed to by fp is in fact a digit) read through
+    the rest of the next set of digits until the end of the file and prepare to read a new word once it is reached.
+    
+    Otherwise if the index is greater than 0 and less than the maximum length of 45, it means a whole word must have been read
+    by the file stream pointer fp. If this is the case, signify it is the end of the word with the special \0 character, update
+    the total amount of words being read, spellcheck the word and calculate how long it took the spellcheck it. Add the total
+    time spent checking to total run time of the program, print the misspelled word to console, and add 1 to the tracker
+    of misspelled words if it was misspelled. 
+    
+     
+5.  WE need to filter out words that exceed our maximum length otherwise a word that exceeds LENGTH might be read into
+    our buffer that will potentially exceed the maximum storage of the buffer, causing buffer overflow in the stack (potentially overwriting
+    important information). Additionally, fscanf might consider certain punctuation as part of a word and we want to exclude
+    such as periods or brackets at the end of a word to properly perform our spell check.
+     
+6.  As check and load take pointers as arguments, they point directly at what is stored at the address specified by the arguments.
+    The data stored here can potentially be altered by the body of the function. The const here ensures the information
+    in the argument pointers is only used to read the information stored by the pointer as that is all that is needed
+    by these functions.
+    
+7.  TODO
+8.  TODO
+9.  TODO
+10. TODO
